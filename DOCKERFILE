@@ -1,0 +1,48 @@
+ # Use Airflow with Python 3.11
+
+FROM apache/airflow:2.7.2-python3.11
+
+# Switch to root for system deps
+USER root
+
+# Install system dependencies + Docker CLI
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        procps \
+        openjdk-17-jdk \
+        libgdal-dev \
+        libgeos-dev \
+        libproj-dev \
+        g++ \
+        docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Update the JAVA_HOME path to version 17
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Copy requirements
+COPY requirements.txt /opt/airflow/requirements.txt
+
+# Switch to airflow user
+USER airflow
+
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir \
+    --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.11.txt" \
+    kafka-python pandas sqlalchemy psycopg2-binary pyarrow osmnx networkx && \
+    pip install --no-cache-dir "pendulum<3"
+
+# Install PySpark
+RUN pip install pyspark
+
+RUN pip install fastparquet
+
+# Downgrade compatibility libs
+RUN pip install "numpy<2" "pandas<2.5" "pyarrow<13" "scikit-learn"
+
+# Copy project
+COPY --chown=airflow:airflow . /opt/airflow/dags/
+
+WORKDIR /opt/airflow

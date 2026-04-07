@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+
+# Environment variables
+.env
+
+# Data folders (raw, intermediate, processed)
+data/
+logs/
+pipeline_logs/
+checkpoints/
+*.json
+*.csv
+*.parquet
+
+# IDE / OS
+*.swp
+.DS_Store
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+
+# IDE / OS files
+*.swp
+.DS_Store
+.idea/
+.vscode/
+
+# Airflow / Docker logs
+airflow_logs/
+docker-compose.override.yml
+*.log
+
+# Optional: macOS and Linux temporary files
+*.bak
+*.tmp
+
