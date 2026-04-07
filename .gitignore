@@ -39,3 +39,4 @@ docker-compose.override.yml
 *.bak
 *.tmp
 
+airflow-webserver.pid
