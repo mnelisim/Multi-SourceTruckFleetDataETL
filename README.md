@@ -13,7 +13,7 @@ This 1-minute demo shows the full pipeline in action:
 - Data loading into PostgreSQL (rows updating live)  
 - Dashboard visualization with live truck locations and metrics
 
-<video src="video/ETL_Pipeline_End-to-End_Demo.webm" controls width="600"></video>
+![ETL Demo](video/ETL_Pipeline_End-to-End_Demo.webm)
 
 ---
 
