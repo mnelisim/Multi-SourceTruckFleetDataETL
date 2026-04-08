@@ -106,12 +106,15 @@ The ETL pipeline orchestrates the extraction, transformation, and loading:
    - Transformed data is extracted from PostgreSQL (batch data).
    - Data is saved in Parquet format for BigQuery efficient storage and query performance.
 
-# Airflow DAG Overview
+# Airflow DAGS Overview
 
+1. Truck_fleet_ingest_mission
 ![Airflow DAG truck_fleet_ingest_mission](screenshots/Ingest.png)
 
+2. Spark_streaming_engine
 ![Airflow DAG spark_streaming_engine](screenshots/Transform.png)
 
+3. Truck_fleet_gold_sync
 ![Airflow DAG truck_fleet_gold_sync](screenshots/Load.png)
 
 This image shows the DAG structure with separate tasks for extract, transform, load.
