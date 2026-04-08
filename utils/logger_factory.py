@@ -20,7 +20,7 @@ class LoggerFactory:
             logger.addHandler(console_handler)
 
             # File Handler (Persistent logs)
-            log_dir = "/logs"
+            log_dir = "logs"
             os.makedirs(log_dir, exist_ok=True)
 
             file_handler = logging.FileHandler(f"{log_dir}/pipeline.log")
