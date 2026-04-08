@@ -1,5 +1,5 @@
 
-## Real-Time Multi-SourceFleetDataETL Pipeline
+## Real-Time Multi-SourceTruckFleetDataETL Pipeline
 
 ### High-Concurrency Streaming Analytics with Spark, Kafka & Airflow
 
@@ -48,7 +48,7 @@ Traditional batch pipelines introduce delays that make them unsuitable for these
 I designed a **high-concurrency streaming architecture** capable of:
 
 * Handling **simultaneous event ingestion (10 parallel producers)**
-* Processing data in **near real-time using Spark Structured Streaming**
+* Processing data in **real-time using Spark Structured Streaming**
 * Ensuring **fault tolerance and data consistency via checkpointing**
 
 ---
