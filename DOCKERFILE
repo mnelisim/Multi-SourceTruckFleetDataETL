@@ -46,3 +46,7 @@ RUN pip install "numpy<2" "pandas<2.5" "pyarrow<13" "scikit-learn"
 COPY --chown=airflow:airflow . /opt/airflow/dags/
 
 WORKDIR /opt/airflow
+
+# docker
+COPY storage /app/storage
+COPY config.py /app/config.py
