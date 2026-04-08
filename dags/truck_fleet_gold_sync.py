@@ -13,7 +13,7 @@ class GoldSyncManager:
         }
     @staticmethod
     def run_gold_load():
-        # This calls your existing ETL logic to move Postgres -> Parquet -> BigQuery
+        # This calls existing ETL logic to move Postgres -> Parquet -> BigQuery
         from pipeline.etl_pipeline import ETLpipeline
         pipeline = ETLpipeline()
         pipeline.run_batch_load()
