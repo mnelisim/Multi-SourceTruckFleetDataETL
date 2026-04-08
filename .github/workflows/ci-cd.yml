@@ -28,5 +28,5 @@ jobs:
 
     - name: Run smoke test
       run: |
-        docker run --rm -v $PWD:/app fleet-airflow:latest \
-          python /app/pipeline/etl_pipeline.py --test
+        docker run --rm -v $PWD:/app -e PYTHONPATH=/app fleet-airflow:latest \
+        python /app/pipeline/etl_pipeline.py --test
