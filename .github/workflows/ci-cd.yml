@@ -1,4 +1,4 @@
-name: Multi-SourceFleetDataETL ETL CI/CD
+name: Multi-SourceFleetDataETL CI/CD
 
 on:
   push:
