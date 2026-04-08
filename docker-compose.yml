@@ -58,7 +58,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ⚙️ Airflow Init (runs once)
+  # Airflow Init (runs once)
   airflow-init:
     <<: *airflow-common
     container_name: airflow_init
