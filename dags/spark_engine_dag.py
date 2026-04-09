@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
+from utils.alerts import alert_on_failure
 import sys
 import os
 
@@ -14,6 +15,7 @@ class SparkStreamingManager:
             'owner': 'mnelisi',
             'retries': 1,
             'retry_delay': timedelta(minutes=5),
+            "on_failure_callback": alert_on_failure
         }
         # Centralized command config
         self.script_path = "/opt/spark_jobs/transform.py"

@@ -40,6 +40,7 @@ jobs:
 
     - name: Build Airflow Docker image
       run: docker build -t fleet-airflow:latest -f DOCKERFILE .
+      
 
     - name: Run smoke test
       env:
@@ -52,3 +53,12 @@ jobs:
           -e POSTGRES_URL="$POSTGRES_URL" \
           fleet-airflow:latest \
           python /app/pipeline/etl_pipeline.py --test
+
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      if: always() # <--- CRITICAL: This ensures I get a message even if the build fails
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_TITLE: "Build Status: ${{ job.status }}"
+        SLACK_MESSAGE: "Multi-SourceFleetDataETL result: ${{ job.status }}"
+        SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}

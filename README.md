@@ -121,6 +121,14 @@ The ETL pipeline orchestrates the extraction, transformation, and loading:
 
 This image shows the DAG structure with separate tasks for extract, transform, load.
 
+### Monitoring & Alerts
+- **High Availability**: Implemented a custom alerting system to ensure data reliability.
+- **Fail-Safe**: If any task fails, Airflow triggers a callback that sends an instant notification to Slack.
+- **CI/CD Notifications**: GitHub Actions provides real-time updates on build and deployment status.
+
+**Alert Notification:**
+![Slack Alert](screenshots/slack_alerts.png)
+
 ## Dashboard – Real-Time Fleet Monitoring
 
 The Streamlit dashboard displays live insights from the ETL pipeline:
@@ -234,6 +242,9 @@ Spark attempted to read from topics before creation, causing:
 
    -bash
    docker-compose up -d
+   sudo chmod 666 /var/run/docker.sock
+   docker exec -u root spark pkill -9 -f transform.py
+   docker exec -u root spark rm -rf /opt/spark_jobs/checkpoints/truck_fleet/
    
 4. Trigger Airflow DAGs:
    * `truck_fleet_ingest_mission`

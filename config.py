@@ -10,7 +10,7 @@ KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
 
 # ===================== CONFIG DATABASE ====================
 
-
+webhook_url = os.getenv("SLACK_WEBHOOK")
 
 
 db_url = os.getenv("POSTGRES_URL")

@@ -11,6 +11,8 @@ x-airflow-common: &airflow-common
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DB_CONN}
     AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     PYTHONPATH: "/opt/airflow"
+    SLACK_WEBHOOK_URL: ${SLACK_WEBHOOK} 
+    AIRFLOW__WEBSERVER__BASE_URL: http://localhost:8083
   volumes:
     - ./:/opt/airflow
     - ./pipeline_logs:/logs

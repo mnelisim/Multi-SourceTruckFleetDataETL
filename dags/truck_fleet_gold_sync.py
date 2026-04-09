@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
+from utils.alerts import alert_on_failure
 
 
 class GoldSyncManager:
@@ -10,6 +11,7 @@ class GoldSyncManager:
             'owner': 'mnelisi',
             'retries': 1,
             'retry_delay': timedelta(minutes=5),
+            "on_failure_callback": alert_on_failure
         }
     @staticmethod
     def run_gold_load():
