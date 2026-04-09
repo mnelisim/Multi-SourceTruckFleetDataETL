@@ -101,5 +101,7 @@ if __name__ == "__main__":
         loader.load_to_sandbox()
     else:
         print("[CRITICAL] Extraction failed. Check the logs above.")
+
+print("ETL Pipeline completed successfully")
    
 

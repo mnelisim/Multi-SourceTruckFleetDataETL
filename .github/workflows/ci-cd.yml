@@ -27,6 +27,13 @@ jobs:
       run: docker build -t fleet-airflow:latest -f DOCKERFILE .
 
     - name: Run smoke test
+      env:
+        # Reference the secret stored in your GitHub Repository Settings
+        POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
       run: |
-        docker run --rm -v $PWD:/app -e PYTHONPATH=/app fleet-airflow:latest \
-        python /app/pipeline/etl_pipeline.py --test
+        docker run --rm \
+          -v $PWD:/app \
+          -e PYTHONPATH=/app \
+          -e POSTGRES_URL="$POSTGRES_URL" \
+          fleet-airflow:latest \
+          python /app/pipeline/etl_pipeline.py --test
