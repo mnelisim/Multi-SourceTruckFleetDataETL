@@ -1,6 +1,8 @@
 
 ## Real-Time Multi-SourceTruckFleetDataETL Pipeline
 
+[![Multi-SourceFleetDataETL CI/CD](https://github.com/mnelisim/Multi-SourceTruckFleetDataETL/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/mnelisim/Multi-SourceTruckFleetDataETL/actions/workflows/ci-cd.yml)
+
 ### High-Concurrency Streaming Analytics with Spark, Kafka & Airflow
 
 **End-to-end real-time data pipeline processing IoT fleet telemetry using Kafka, Spark Structured Streaming, and Airflow.**
