@@ -12,7 +12,7 @@ class BigQueryLoader:
         # Convert JDBC URL to SQLAlchemy format
         clean_url = db_url.replace("jdbc:postgresql://", "")
         self.connection_uri = f"postgresql://{user}:{password}@{clean_url}"
-        
+
         self.engine = create_engine(self.connection_uri)
         self.output_parquet = "data/truck_data_gold.parquet"
 
