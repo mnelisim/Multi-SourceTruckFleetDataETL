@@ -127,6 +127,11 @@ This image shows the DAG structure with separate tasks for extract, transform, l
 - **CI/CD Notifications**: GitHub Actions provides real-time updates on build and deployment status.
 
 **Alert Notification:**
+
+1. Task and CI/CD
+![Slack Alert](screenshots/slack_alerts1.png)
+
+2.Data Quality
 ![Slack Alert](screenshots/slack_alerts1.png)
 
 ## Dashboard – Real-Time Fleet Monitoring
