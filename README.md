@@ -132,7 +132,7 @@ This image shows the DAG structure with separate tasks for extract, transform, l
 ![Slack Alert](screenshots/slack_alerts1.png)
 
 2.Data Quality
-![Slack Alert](screenshots/slack_alerts1.png)
+![Slack Alert](screenshots/Data_Quality.png)
 
 ## Dashboard – Real-Time Fleet Monitoring
 
