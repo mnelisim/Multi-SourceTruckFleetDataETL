@@ -67,15 +67,15 @@ I designed a **high-concurrency streaming architecture** capable of:
 
 ---
 
-### 🔹 Silver Layer (Processing & Enrichment)
+🔹 Silver Layer (Processing & Enrichment)
 
-* PySpark Structured Streaming pipeline
-* Real-time transformations:
-
-  * Stream-static joins (Driver + Maintenance data)
-  * Schema enforcement & null filtering
-* Outputs enriched data to PostgreSQL (serving layer)
-
+  * PySpark Structured Streaming: Scalable real-time engine processing Kafka feeds.
+  * Real-time Transformations:
+      - Stream-Static Joins: Enriching raw telematics with Driver and Maintenance dimensions.
+      - Data Quality Gates: Multi-stage validation including schema enforcement, coordinate range-checking, and impossible-speed filtering.
+      - Data Cleaning: Handling GPS noise, null values, and string standardisation.
+  * Persistence: Outputs high-integrity, enriched records to the PostgreSQL Serving Layer.
+  * Streaming Data Quality: Real-time batch monitoring that detects and alerts on "Zero-Payload" events, preventing silent pipeline failures.
 ---
 
 ### 🔹 Gold Layer (Analytics & Storage)

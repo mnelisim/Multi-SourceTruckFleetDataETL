@@ -24,6 +24,7 @@ class SparkStreamingManager:
     def get_bash_command(self):
         """Constructs the idempotent spark-submit command."""
         return (
+            f"docker exec -u root spark pip install requests && "
             f"docker exec -u root spark pip install python-dotenv && " 
             f"docker exec -u root spark pkill -9 -f {os.path.basename(self.script_path)} || true && "
             "sleep 5 && "

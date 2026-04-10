@@ -48,12 +48,22 @@ class TruckTransformer:
         # This part runs for every new set of records arriving in Kafka
          # 1. Force the import INSIDE the function
         from config import db_url, user, password
+        from utils.alerts import alert_on_empty_batch
         
         # 2. THE CRITICAL CHECK: If any of these are None, Spark/Java will crash
         if db_url is None or user is None or password is None:
             print(f"[CRITICAL ERROR] Batch {batch_id}: Database credentials are NULL.")
             print(f"Check if .env is mapped to the container. URL: {db_url}, User: {user}")
             return # Stop here to prevent the NullPointerException
+        
+         # 1. Get the count of validated records in this batch
+        valid_count = batch_df.count()
+        self.logger.info(f"Batch {batch_id}: Processing {valid_count} validated records.")
+
+        # 2. Trigger Slack alert if the batch is empty (potential data source issue)
+        if valid_count == 0:
+            alert_on_empty_batch(batch_id)
+            return  # Skip the write if there's no data
 
         try:
             batch_df.write \
@@ -65,6 +75,7 @@ class TruckTransformer:
                 .option("dbtable", "enriched_truck_data") \
                 .mode("append") \
                 .save()
+            self.logger.info(f"Batch {batch_id} successfully written to Postgres.")
         except Exception as e:
             print(f"Database write failed for batch {batch_id}: {e}")
         
@@ -84,13 +95,20 @@ class TruckTransformer:
         # 2. Load Dimensions
         m_df, d_df = self._read_static_data()
 
-        # 3. Transform & Clean
+        # 3a. Transform & Clean
         df_parsed = df.select(from_json(col("value").cast("string"), self.schema).alias("data")).select("data.*")
         
-        df_final = df_parsed.dropna(subset=["truck_id", "latitude", "longitude"]) \
+        df_cleaned = df_parsed.dropna(subset=["truck_id", "latitude", "longitude"]) \
             .filter((col("latitude") != 0) & (col("longitude") != 0)) \
             .withColumn("timestamp", to_timestamp(col("timestamp"))) \
             .withColumn("truck_id", upper(trim(col("truck_id"))))
+        
+        # 3b. Data Quality Validation (Speed and Latitude range checks)
+        df_final = df_cleaned.filter(
+            (col("speed_kmh") >= 0) & (col("speed_kmh") <= 160) &
+            (col("latitude").between(-90, 90)) & 
+            (col("longitude").between(-180, 180))
+        )
 
         # 4. Join
         enriched_df = df_final.join(m_df, "truck_id").join(d_df, "truck_id")
